@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <NoWarn>$(NoWarn);CA1031</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Label="NuGet">
+    <NoWarn>$(NoWarn);NU5128</NoWarn>
+    <DevelopmentDependency>true</DevelopmentDependency>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <IncludeSymbols>false</IncludeSymbols>
+    <Description>Source generator, which allows you to add prompts from which code will be generated in deterministic mode.</Description>
+    <PackageTags>openai, gpt, chatgpt, gpt-3.5, gpt-4, generator, source generator, csharp, prompts</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+    <None Include="$(AssemblyName).props" Pack="true" PackagePath="build" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.0.0" PrivateAssets="all" />
+    <PackageReference Include="H.Generators.Extensions" Version="1.15.0" PrivateAssets="all" />
+    <PackageReference Include="OpenAI" Version="1.7.2" />
+    <PackageReference Include="PolySharp" Version="1.13.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  
+</Project>

@@ -1,0 +1,4 @@
+Write simple calculator class in C#. It should have 2 methods: Add and Multiply.
+Both methods should take 2 arguments and return result.
+You can use only + and * operators.
+You can't use any other methods or classes.

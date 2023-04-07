@@ -1,0 +1,17 @@
+﻿<Project>
+
+  <PropertyGroup>
+    <WarningsAsErrors>$(WarningsAsErrors);NSG001</WarningsAsErrors>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <CompilerVisibleProperty Include="OpenAIGenerator_UseCache"/>
+    <CompilerVisibleProperty Include="OpenAIGenerator_ApiKey"/>
+    <CompilerVisibleProperty Include="OpenAIGenerator_SystemMessage"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="**\*.prompt" />
+  </ItemGroup>
+
+</Project>
