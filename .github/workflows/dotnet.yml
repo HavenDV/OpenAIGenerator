@@ -1,5 +1,7 @@
 ﻿name: Build, test and publish
 on: [ push ]
+env:
+  OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
 jobs:
   build-test-publish:
