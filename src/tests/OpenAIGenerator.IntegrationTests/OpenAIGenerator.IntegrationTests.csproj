@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
-    <OpenAIGenerator_ApiKey>$(OPENAI_API_KEY)</OpenAIGenerator_ApiKey>
+    <OpenAIGenerator_ApiKey>$(API_KEY)</OpenAIGenerator_ApiKey>
   </PropertyGroup>
 
   <Import Project="../../libs/OpenAIGenerator/OpenAIGenerator.props" />

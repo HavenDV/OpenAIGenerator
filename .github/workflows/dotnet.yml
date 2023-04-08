@@ -5,10 +5,9 @@ jobs:
   build-test-publish:
     name: Build, test and publish
     uses: HavenDV/workflows/.github/workflows/dotnet_build-test-publish.yml@main
-    env:
-      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
     with:
       generate-build-number: false
       conventional-commits-publish-conditions: false
     secrets:
       nuget-key: ${{ secrets.NUGET_KEY }}
+      api-key: ${{ secrets.OPENAI_API_KEY }}
