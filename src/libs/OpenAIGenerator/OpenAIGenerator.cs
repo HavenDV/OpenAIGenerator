@@ -32,16 +32,18 @@ public class OpenAIGenerator : IIncrementalGenerator
                 .Select(static (x, _) => (
                     UseCache: bool.Parse(x.GetGlobalOption("UseCache", prefix: Name) ?? bool.FalseString),
                     ApiKey: x.GetRequiredGlobalOption("ApiKey", prefix: Name),
-                    SystemMessage: x.GetGlobalOption("SystemMessage", prefix: Name) ?? string.Empty)))
+                    SystemMessage: x.GetGlobalOption("SystemMessage", prefix: Name) ?? string.Empty,
+                    Temperature: double.TryParse(x.GetGlobalOption("Temperature", prefix: Name), out var result) ? result : 0.0,
+                    Model: x.GetGlobalOption("Model", prefix: Name) ?? "gpt-3.5-turbo")))
             .SelectAndReportExceptions(GetSourceCode, context, Id)
             .AddSource(context);
     }
 
     private static FileWithName GetSourceCode(
-        (AdditionalText text, (bool UseCache, string ApiKey, string SystemMessage)) tuple,
+        (AdditionalText text, (bool UseCache, string ApiKey, string SystemMessage, double Temperature, string Model)) tuple,
         CancellationToken cancellationToken = default)
     {
-        var (text, (useCache, apiKey, systemMessage)) = tuple;
+        var (text, (useCache, apiKey, systemMessage, temperature, model)) = tuple;
         
         string source;
         if (useCache &&
@@ -56,6 +58,8 @@ public class OpenAIGenerator : IIncrementalGenerator
                 prompt: prompt,
                 apiKey: apiKey,
                 systemMessage: systemMessage,
+                temperature: temperature,
+                model: model,
                 cancellationToken), cancellationToken).Result;
             
             Cache[text.Path] = source;
@@ -69,14 +73,16 @@ public class OpenAIGenerator : IIncrementalGenerator
     private static async Task<string> GetSourceCodeByPromptAsync(
         string prompt,
         string apiKey,
-        string? systemMessage = null,
+        string systemMessage,
+        double temperature,
+        string model,
         // ReSharper disable once UnusedParameter.Local
         CancellationToken cancellationToken = default)
     {
         var api = new OpenAIAPI(apiKeys: apiKey);
         var chat = api.Chat.CreateConversation();
-        chat.RequestParameters.Temperature = 0.0;
-        chat.Model = Model.ChatGPTTurbo;
+        chat.RequestParameters.Temperature = temperature;
+        chat.Model = new Model(model) { OwnedBy = "openai" };
         if (!string.IsNullOrWhiteSpace(systemMessage))
         {
             chat.AppendSystemMessage(content: systemMessage);

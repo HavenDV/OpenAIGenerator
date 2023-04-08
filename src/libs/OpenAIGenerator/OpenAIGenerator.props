@@ -8,6 +8,8 @@
     <CompilerVisibleProperty Include="OpenAIGenerator_UseCache"/>
     <CompilerVisibleProperty Include="OpenAIGenerator_ApiKey"/>
     <CompilerVisibleProperty Include="OpenAIGenerator_SystemMessage"/>
+    <CompilerVisibleProperty Include="OpenAIGenerator_Temperature"/>
+    <CompilerVisibleProperty Include="OpenAIGenerator_Model"/>
   </ItemGroup>
 
   <ItemGroup>
