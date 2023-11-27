@@ -20,6 +20,8 @@ public class OpenAIGenerator : IIncrementalGenerator
 
     private static Dictionary<string, string> Cache { get; } = new();
 
+    private static readonly char[] TrimChars = { ' ', '\r', '\n' };
+
     #endregion
 
     #region Methods
@@ -105,7 +107,7 @@ public class OpenAIGenerator : IIncrementalGenerator
         
         var startIndex = response.IndexOf(value: "```", comparisonType: StringComparison.Ordinal) + "```".Length;
         var endIndex = response.IndexOf(value: "```", startIndex: startIndex, comparisonType: StringComparison.Ordinal);
-        response = response[startIndex..endIndex].TrimStart(trimChars: new[] { ' ', '\r', '\n' });
+        response = response[startIndex..endIndex].TrimStart(trimChars: TrimChars);
 
         return response;
     }
