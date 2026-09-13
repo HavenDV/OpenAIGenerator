@@ -1,4 +1,8 @@
 # OpenAIGenerator
+
+> [!IMPORTANT]
+> OpenAIGenerator is deprecated and no longer maintained. Existing NuGet versions remain available for legacy consumers. For new code, prefer explicit project-local generation or modern LLM-assisted development workflows instead of invoking an external model during compilation.
+
 Source generator, which allows you to add prompts from which code will be generated in deterministic mode
 
 ## Usage
